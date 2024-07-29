@@ -1,4 +1,4 @@
-
+# Notes Application
 ## Overview
 
 The Notes Application is a simple and intuitive tool for creating, managing, and organizing notes. Users can add, edit, delete, and search notes, and organize them into folders or tags for better management.
