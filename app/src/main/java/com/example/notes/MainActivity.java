@@ -144,19 +144,25 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        if(item.getItemId() == R.id.pin){
-            if (selectedNotes.getPinned()){
-                database.mainDAO().pin(selectedNotes.getID(),false);
+        if (item.getItemId() == R.id.pin) {
+            // Get pinned value or default to false if null
+            Boolean isPinned = selectedNotes.getPinned();
+            if (Boolean.TRUE.equals(isPinned)) {
+                // Unpin the note
+                database.mainDAO().pin(selectedNotes.getID(), false);
                 Toast.makeText(this, "UnPinned", Toast.LENGTH_SHORT).show();
-            }else{
-                database.mainDAO().pin(selectedNotes.getID(),true);
+            } else {
+                // Pin the note
+                database.mainDAO().pin(selectedNotes.getID(), true);
                 Toast.makeText(this, "Pinned", Toast.LENGTH_SHORT).show();
             }
+            // Update the notes list and notify the adapter
             notes.clear();
             notes.addAll(database.mainDAO().getAll());
             noteListAdapter.notifyDataSetChanged();
-            return  true;
+            return true;
         } else if (item.getItemId() == R.id.delete) {
+            // Handle delete operation
             database.mainDAO().delete(selectedNotes);
             notes.remove(selectedNotes);
             noteListAdapter.notifyDataSetChanged();
